@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const list = ["rock","paper","scissors"];
+
+        function computerPlay(list) {
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        //let computerSelection = computerPlay(list);
+        
+        function playRound(playerSelection, computerSelection) {
+            let outcome;
+            if ((playerSelection === "rock") && (computerSelection === "rock")) {
+                outcome = "d";
+                console.log("Draw! You both picked Rock!");
+                return outcome;
+            } 
+            else if ((playerSelection === "paper") && (computerSelection === "paper")) {
+                outcome = "d";
+                console.log("Draw! You both picked Paper!");
+                return outcome;
+            }
+            else if ((playerSelection === "scissors") && (computerSelection === "scissors")) {
+                outcome = "d";
+                console.log("Draw! You both picked Scissors!");
+                return outcome;
+            }
+            else if ((playerSelection === "rock") && (computerSelection === "scissors")) {
+                outcome = "p";
+                console.log("You Win! Rock beats Scissors");
+                return outcome;
+            }
+            else if ((playerSelection === "rock") && (computerSelection === "paper")) {
+                outcome = "c";
+                console.log("You Lose! Paper beats Rock");
+                return outcome;
+            }
+            else if ((playerSelection === "paper") && (computerSelection === "rock")) {
+                outcome = "p";
+                console.log("You Win! Paper beats Rock");
+                return outcome;
+            }
+            else if ((playerSelection === "paper") && (computerSelection === "scissors")) {
+                outcome = "c";
+                console.log("You Loose! Scissors beats Paper");
+                return outcome;
+            }
+            else if ((playerSelection === "scissors") && (computerSelection === "rock")) {
+                outcome = "c";
+                console.log("You Loose! Rock beats Scissors");
+                return outcome;
+            }
+            else if ((playerSelection === "scissors") && (computerSelection === "paper")) {
+                outcome = "p";
+                console.log("You Win! Scissors beats Paper");
+                return outcome;
+            }
+            else {
+                outcome = "Something went wrong!"
+                return outcome;
+            }
+        }
+
+       
+        //let result = playerSelection.toLowerCase();
+
+        function game(func,computerPlay,list) {
+
+            let run = true;
+            let go = true;
+            let winner = "";
+            let outcome = "";
+            let c = "";
+            let p = "";
+            let decision = "";
+            let player_sum = 0;
+            let comp_sum = 0;
+
+            while (run) {
+
+                go = true;
+
+                // Ask User what decision he wants to input (rock,paper,scissors)
+                decision = prompt("Enter 'r' for Rock or 'p' for Paper or 's' for Scissors");
+                p = decision.toLowerCase();
+                if (p === "r") {
+                    p = "rock";
+                }
+                else if (p === "p") {
+                    p = "paper";
+                }
+                else if (p === "s") {
+                    p = "scissors";
+                }
+                else {
+                    p = "rock"
+                    console.log("Invalid Input")
+                }
+
+                //The decision of the Computer
+                c = computerPlay(list);
+
+                // Outcome either gets the value "p" or "c". It determines who won the specific round
+                let outcome = func(p,c);
+                // If it's a draw then we loop it until player win or loose
+                if (outcome === "d") {
+                    while (go) {
+
+                        console.log("No points are given!");
+
+                        // player p input
+                        decision = prompt("Enter 'r' for Rock or 'p' for Paper or 's' for Scissors");
+                        p = decision.toLowerCase();
+                        if (p === "r") {
+                            p = "rock";
+                        }
+                        else if (p === "p") {
+                            p = "paper";
+                        }
+                        else if (p === "s") {
+                            p = "scissors";
+                        }
+                        else {
+                            p = "rock"
+                            console.log("Invalid Input")
+                        }
+
+                        // computer c input
+                        c = computerPlay(list);
+
+                        outcome = func(p,c);
+
+                        if (outcome != "d") {
+                            go = false;
+                        }
+                    }
+                }
+                if (outcome === "p") {
+                    //console.log("Congrats! You won this round!");
+                    player_sum = player_sum + 1;
+                }
+                else if (outcome === 'c') {
+                    //console.log("Oh no! You lost this round!");
+                    comp_sum = comp_sum + 1;
+                }
+                console.log("Player points: " + player_sum + "\n" + "Computer points: " + comp_sum);
+
+                if (player_sum === 5) {
+                    winner = "p";
+                    run = false;
+                }
+                else if (comp_sum === 5) {
+                    winner = "c";
+                    run = false;
+                }
+            } 
+            return winner;
+        }
+
+        let winner = game(playRound,computerPlay,list);
+
+        if (winner === "p") {
+            console.log("Congrats! You won the Game!")
+        }
+        else if (winner === "c") {
+            console.log("Oh no! You lost the Game!")
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
